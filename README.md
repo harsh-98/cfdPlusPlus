@@ -24,6 +24,11 @@ In each node various sensors are used. Such as:
 - Temperature sensor
 - Vibration sensor
 
+Other required data -- 
+- Rainfall data
+- Satellite data
+- GPS data
+
 The data send by these devices will be used by azure iot hub and edge platform for detecting sudden rise. If sensors cross the threshold value, alert system is activated. Alert system is in different form. Big buzzers are activated in the land slide area. There is an advanced alert system using SMS, email and IoT application. Azure maps will highlight the affected areas.
 
 For deploying the system we would be working under one of our Professor Satessh kumar Pedoju.
