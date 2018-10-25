@@ -25,10 +25,10 @@ async function readDatabase() {
 }
 
 function otherNodes(count){
-    var coord = [{lat: 20, long:20},{lat: 20, long:20},{lat: 20, long:20},{lat: 20, long:20}]
+    var coord = [{lat: 28.5238609, long: 77.1427675},{lat: 30.480934,long: 78.0781008},{lat: 31.4892844,long :77.6969028},{lat: 29.2932976,long: 79.1890554}]
     let dateTime = Date.now()
     for(i=0;i<count;i++){
-        let riskFactor = (Math.random() * 5);
+        let riskFactor = (Math.random() * .2);
         coord[i].riskFactor = riskFactor
         coord[i].lastUpdated = dateTime
         coord[i].deviceID = "sensor_pi_" + (i+2)
@@ -68,6 +68,7 @@ router.get('/api',async (req, res) => {
             }
         }
         nodes.push(node)
+        console.log(JSON.stringify(nodes))
         res.status(200).json(nodes);
 })
 
