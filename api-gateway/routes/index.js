@@ -61,10 +61,10 @@ router.get('/api',async (req, res) => {
         var node = {}
         for(var result of results){
             node = {
-                lat: result.lat,
-                long: result.long,
+                lat: parseInt(result.lat),
+                long: parseInt(result.long),
                 deviceID: result.deviceID,
-                lastUpdated: result.lastUpdated,
+                lastUpdated: parseInt(result.lastUpdated),
                 riskFactor: result.riskFactor
             }
         }
