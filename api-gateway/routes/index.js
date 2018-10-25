@@ -61,11 +61,11 @@ router.get('/api',async (req, res) => {
         var node = {}
         for(var result of results){
             node = {
-                lat: parseInt(result.lat),
-                long: parseInt(result.long),
-                deviceID: result.deviceID,
+                lat: parseFloat(result.lat),
+                long: parseFloat(result.long),
+                riskFactor: result.riskFactor,
                 lastUpdated: parseInt(result.lastUpdated),
-                riskFactor: result.riskFactor
+                deviceID: result.deviceID
             }
         }
         nodes.push(node)
