@@ -19,6 +19,11 @@ options))
 app.use(bodyParser.urlencoded({
 	extended: true
 }))
+
+app.use((req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    next()
+})
 app.use(routes)
 
 let server = app.listen(process.env.PORT || 3000, function () {

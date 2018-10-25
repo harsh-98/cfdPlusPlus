@@ -38,6 +38,7 @@ function otherNodes(count){
 
 router.get('/', (req, res)=>{
     const index = fs.readFileSync( __dirname + '/../index.html');
+    res.setHeader('Content-type', 'text/html');
     res.send(index)
 })
 
