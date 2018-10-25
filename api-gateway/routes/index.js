@@ -47,7 +47,7 @@ router.get('/api',async (req, res) => {
 
         // query to return all children in a family
         const querySpec = {
-            query: "SELECT TOP 1 r.lat, r.long , r.deviceID, r.createdDate as lastUpdated, r.riskFactor FROM root r WHERE r.deviceID = @deviceID",
+            query: "SELECT TOP 1 r.lat, r.long , r.deviceID, r.createdDate as lastUpdated, r.riskFactor FROM root r WHERE r.deviceID = @deviceID order by r.createdDate desc",
             parameters: [
                 {
                     name: "@deviceID",
