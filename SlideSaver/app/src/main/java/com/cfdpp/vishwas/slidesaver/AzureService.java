@@ -30,91 +30,91 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by vishwas on 26/10/18.
  */
 
-public class AzureService extends Job {
+public class AzureService extends IntentService {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-//    public AzureService(String name) {
-//        super(name);
-//    }
-//
-//    public AzureService() {
-//        super("AzureService");
-//    }
-//
-//    String BASE_URL = "http://13.71.4.119:3000/";
-//
-//    OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-//
-//    Retrofit.Builder builder =
-//            new Retrofit.Builder()
-//                    .baseUrl(BASE_URL)
-//                    .addConverterFactory(GsonConverterFactory.create());
-//
-//    Retrofit retrofit = builder.client(httpClient.build())
-//            .build();
-//    SensorServiceInterface client = retrofit.create(SensorServiceInterface.class);
-//
-//    @Override
-//    protected void onHandleIntent(@Nullable Intent intent) {
-//        String data = intent.getDataString();
-//        while (true) {
-//            Call<List<SensorResponse>> call = client.getResponse();
-//            call.enqueue(new Callback<List<SensorResponse>>() {
-//                @Override
-//                public void onResponse(Call<List<SensorResponse>> call, Response<List<SensorResponse>> response) {
-//                    List<SensorResponse> sensorResponseList = response.body();
-//                    List<WeightedLatLng> list = new ArrayList<>();
-//                    for (SensorResponse i : sensorResponseList) {
-//                        Log.e("Service data", String.valueOf(i.getRiskFactor()));
-//                        list.add(new WeightedLatLng(new LatLng(i.get_lat(), i.get_long()), i.getRiskFactor()));
-//                    }
-//                    Toast.makeText(getApplicationContext(), "Toast to the serrvice", Toast.LENGTH_SHORT).show();
-//                    // TODO: for background
-//                    /*
-//                     * Get the location points for hot zones
-//                     * Calculate the user's risk factor according to the points and user's location
-//                     * Notify the user if risk factor is more than .5
-//                     */
-//                }
-//
-//                @Override
-//                public void onFailure(Call<List<SensorResponse>> call, Throwable t) {
-//                    Log.e("Error", t.toString());
-//                }
-//            });
-//
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
-    public static final String TAG = "job_get_azure_data";
+    public AzureService(String name) {
+        super(name);
+    }
 
+    public AzureService() {
+        super("AzureService");
+    }
 
-    @NonNull
+    String BASE_URL = "http://13.71.4.119:3000/";
+
+    OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+    Retrofit.Builder builder =
+            new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create());
+
+    Retrofit retrofit = builder.client(httpClient.build())
+            .build();
+    SensorServiceInterface client = retrofit.create(SensorServiceInterface.class);
+
     @Override
-    protected Result onRunJob(@NonNull Params params) {
-        Log.e("AzureJob", "Inside onRunJob");
-        return Result.SUCCESS;
-    }
+    protected void onHandleIntent(@Nullable Intent intent) {
+        String data = intent.getDataString();
+        while (true) {
+            Call<List<SensorResponse>> call = client.getResponse();
+            call.enqueue(new Callback<List<SensorResponse>>() {
+                @Override
+                public void onResponse(Call<List<SensorResponse>> call, Response<List<SensorResponse>> response) {
+                    List<SensorResponse> sensorResponseList = response.body();
+                    List<WeightedLatLng> list = new ArrayList<>();
+                    for (SensorResponse i : sensorResponseList) {
+                        Log.e("Service data", String.valueOf(i.getRiskFactor()));
+                        list.add(new WeightedLatLng(new LatLng(i.get_lat(), i.get_long()), i.getRiskFactor()));
+                    }
+                    Toast.makeText(getApplicationContext(), "Toast to the service", Toast.LENGTH_SHORT).show();
+                    // TODO: for background
+                    /*
+                     * Get the location points for hot zones
+                     * Calculate the user's risk factor according to the points and user's location
+                     * Notify the user if risk factor is more than .5
+                     */
+                }
 
-    public static void scheduleJob() {
-        Set<JobRequest> jobRequests = JobManager.instance().getAllJobRequestsForTag(AzureService.TAG);
-        if (!jobRequests.isEmpty()) {
-            return;
+                @Override
+                public void onFailure(Call<List<SensorResponse>> call, Throwable t) {
+                    Log.e("Error", t.toString());
+                }
+            });
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        new JobRequest.Builder(AzureService.TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(7))
-                .setUpdateCurrent(true) // calls cancelAllForTag(NoteSyncJob.TAG) for you
-                .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
-                .setRequirementsEnforced(true)
-                .build()
-                .schedule();
+
     }
+//    public static final String TAG = "job_get_azure_data";
+//
+//
+//    @NonNull
+//    @Override
+//    protected Result onRunJob(@NonNull Params params) {
+//        Log.e("AzureJob", "Inside onRunJob");
+//        return Result.SUCCESS;
+//    }
+//
+//    public static void scheduleJob() {
+//        Set<JobRequest> jobRequests = JobManager.instance().getAllJobRequestsForTag(AzureService.TAG);
+//        if (!jobRequests.isEmpty()) {
+//            return;
+//        }
+//        new JobRequest.Builder(AzureService.TAG)
+//                .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(7))
+//                .setUpdateCurrent(true) // calls cancelAllForTag(NoteSyncJob.TAG) for you
+//                .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
+//                .setRequirementsEnforced(true)
+//                .build()
+//                .schedule();
+//    }
 }

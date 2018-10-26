@@ -1,5 +1,6 @@
 package com.cfdpp.vishwas.slidesaver;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,36 +23,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String BASE_URL = "http://13.71.4.119:3000/";
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
-        Retrofit.Builder builder =
-                new Retrofit.Builder()
-                        .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create());
-
-        Retrofit retrofit = builder.client(httpClient.build())
-                .build();
-
-        SensorServiceInterface client = retrofit.create(SensorServiceInterface.class);
-
-        Call<List<SensorResponse>> call = client.getResponse();
-
-        call.enqueue(new Callback<List<SensorResponse>>() {
+        Runnable r = new Runnable() {
             @Override
-            public void onResponse(Call<List<SensorResponse>> call, Response<List<SensorResponse>> response) {
-                List<SensorResponse> sensorResponseList = response.body();
-//                Log.e()
-                for (SensorResponse i : sensorResponseList) {
-                    Log.e(i.getDeviceID(), String.valueOf(i.getRiskFactor()));
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+//                destroy();
             }
-
-            @Override
-            public void onFailure(Call<List<SensorResponse>> call, Throwable t) {
-                Log.e("Error", t.toString());
-            }
-        });
+        };
+        new Thread(r).start();
     }
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Slide Saver</string>
     <string name="title_activity_maps">Map</string>
+    <string name="land_slide_sign">Land slide sign</string>
 </resources>
