@@ -22,3 +22,7 @@ Landslide every year causes a massive loss of life and properties. To tackle thi
 Now, for delivering analytical report and warning to monitoring agency and users we have a rest api which provides real time data from the sensors. We also have a dashbroad which can be used by government for surveiling regions and a app powered  by our infrastructure for getting notifications about the same.   
 
 ![](images/iot_setup.jpg)
+
+
+**Azure Instance URL:** [http://landslide.centralindia.cloudapp.azure.com](http://landslide.centralindia.cloudapp.azure.com)
+
