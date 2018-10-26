@@ -16,8 +16,8 @@ public class AzureJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
 //        return null;
         switch (tag) {
-            case AzureService.TAG:
-                return new AzureService();
+//            case AzureService.TAG:
+//                return new AzureService();
             default:
                 return null;
         }

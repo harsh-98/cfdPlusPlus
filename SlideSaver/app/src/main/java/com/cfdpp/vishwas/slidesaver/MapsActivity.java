@@ -75,8 +75,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        service = new AzureService();
 //        AzureService service = new AzureService();
 //        startService(new Intent(this, AzureService.class));
-        JobManager.create(this).addJobCreator(new AzureJobCreator());
-        AzureService.scheduleJob();
     }
 
     Marker m, m2;
@@ -100,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     m2 = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(location.getLatitude(), location.getLongitude()))
                             .title("Your Location")
-                            .snippet("Risk: <Some probability"));
+                            .snippet("Risk: " + String.valueOf(getCurrRisk(new LatLng(location.getLatitude(), location.getLongitude())))));
                     m2.showInfoWindow();
                 }
             });
@@ -148,54 +146,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
-//        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        // Zoom into users location
-//        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-//        LocationListener locationListener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                centreMapOnLocation(location, "Your Location");
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String s, int i, Bundle bundle) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String s) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String s) {
-//
-//            }
-//        };
-//
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-////            centreMapOnLocation(lastKnownLocation, "Your Location");
-//            LatLng sydney = new LatLng(-34, 151);
-//            m = mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney").visible(false));
-//        } else {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//        }
-    }
-
-
-    public void centreMapOnLocation(Location location, String title) {
-
-        LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-//        mMap.clear();
-        m.remove();
-        m = mMap.addMarker(new MarkerOptions().position(userLocation).title(title));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 12));
     }
 
     private static final SphericalMercatorProjection sProjection = new SphericalMercatorProjection(1.0D);
@@ -263,11 +213,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        finishAffinity();
-//        System.exit(0);
-//    }
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        System.exit(0);
+    }
 
     public double getCurrRisk(LatLng latLng) {
         // calculate the risk factor based on the nearest location
@@ -284,7 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (double d : distances) {
             dsq += 1 / (d * d);
 //            avg_dist += d;
-            if (min_dist > d){
+            if (min_dist > d) {
                 min_dist = d;
             }
         }
