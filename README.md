@@ -6,7 +6,7 @@
 - **api-gateway**: Backend ([here](/api-gateway/))
 - **arduino_code**: Code for Microcontroller ([here](/arduino_code/))
 - **hub-backend**: Serverless Hub Backend ([here](/hub-backend/))
-- **sensor_node**: Simulated Devices for simulated data ([here](/sensor_node/)
+- **sensor_node**: Simulated Devices for simulated data ([here](/sensor_node/))
 
 ## Landslide detection and early warning system
 
