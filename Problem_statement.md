@@ -7,7 +7,7 @@
 Natural disasters like landslides, avalanches, floods and debris flows can result in enormous property damage and human casualties in mountainous regions. Therefore, efforts to measure and to monitor potential landslides are essential to ensure human safety and to protect civil infrastructure. To observe the behavior of slopes, monitoring systems have been installed or manual inspections by human experts have been conducted. Land Slide monitoring is based on geotechnical instrumentations using. However, cablebased systems are costly, require continuous maintenance. To overcome these limitations, wireless sensor networks and Internet of things are a viable alternative technology. 
 
 The diagram shows what the causes of landslide are and how it affects to the different level of ground. These are explained below.
-![](a.png)
+![](images/erosion.png)
 
 Factors Influencing Landslide Risk --
 - Slope
