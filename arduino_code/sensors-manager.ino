@@ -3,7 +3,8 @@
 
 // accelerometer reading variables
 const int MPU_addr=0x68;  // I2C address of the MPU-6050
-int16_t AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
+int16_t AcX,AcY,AcZ,GyX,GyY,GyZ;
+float Tmp;
 
 const int sm_pin = A1;  /* Soil moisture sensor O/P pin */
 const int rd_pin = A0;  /* RAIN DROP sensor O/P pin */
@@ -34,8 +35,8 @@ void loop() {
   dtostrf(rain_percentage, 5, 2, rps);
   dtostrf(moisture_percentage, 4, 2, mps);
   char post[100];
-  char post_[20];
-  // Serial.println(moisture_percentage);
+  char post_[30];
+  sprintf(post_,"rain=%s&moisture=%s",rps,mps);
 
   Wire.beginTransmission(MPU_addr);
   Wire.write(0x3B);
@@ -59,23 +60,8 @@ void loop() {
   dtostrf(GyZ, 5, 0, GyZs);
 
   // sprintf(post,"rain=%s&moisture=%s&AcX=%d&AcY=%d&AcZ=%d&Tmp=%s&GyX=%s&GyY=%s&GyZ=%s", rps, mps, AcX, AcY, AcZ, Tmps, GyXs, GyYs, GyZs);
-  sprintf(post_,"rain=%s&moisture=%s",rps,mps);
-    sprintf(post,"%s&AcX=%d&AcY=%d&AcZ=%d&Tmp=%s&GyX=%d&GyY=%d&GyZ=%d", post_, AcX, AcY, AcZ, Tmps, GyX, GyY, GyZ);
+  sprintf(post,"%s&AcX=%d&AcY=%d&AcZ=%d&Tmp=%s&GyX=%d&GyY=%d&GyZ=%d", post_, AcX, AcY, AcZ, Tmps, GyX, GyY, GyZ);
 
-// Serial.println(AcXs);
-// Serial.println(AcX);
-// Serial.println(AcYs);
-// Serial.println(AcY);
-// Serial.println(AcZs);
-// Serial.println(AcZ);
-// Serial.println(Tmps);
-// Serial.println(Tmp);
-// Serial.println(GyXs);
-// Serial.println(GyX);
-// Serial.println(GyYs);
-// Serial.println(GyY);
-// Serial.println(GyZs);
-// Serial.println(GyZ);
   Serial.println(post);
 
   delay(1000);

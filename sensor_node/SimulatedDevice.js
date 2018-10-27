@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
 'use strict';
 
 const chalk = require('chalk');
@@ -48,37 +45,22 @@ function onSetTelemetryInterval(request, response) {
 }
 
 
-// var SerialPort = require('serialport');
-// var Readline = SerialPort.parsers.Readline;
-// var port = new SerialPort('/dev/ttyS0');
-// var parser = new Readline();
-// port.pipe(parser);
+var SerialPort = require('serialport');
+var Readline = SerialPort.parsers.Readline;
+var port = new SerialPort('/dev/ttyS0');
+var parser = new Readline();
+port.pipe(parser);
 
-// function sendMessage(data){
-function sendMessage(){
+function sendMessage(data){
 
-    // let req = {}
+    let req = {}
 
-    // data.split("&").forEach(function(kv){
-    //     let v=0, k = kv.split("=")
-    //     v = k[1]
-    //     k = k[0]
-    //     req[k] = /\d+.?\d*/.exec(v)[0]
-    // })
-    var moisture = 70 + (Math.random() * 10);
-    var rain = 90 + (Math.random() * 5);
-    var req = {
-      moisture: moisture,
-      rain: rain,
-      AcX:30,
-      AcY:30,
-      AcZ:30,
-      Tmp:27,
-      GyX:30,
-      GyY:30,
-      GyZ:30,
-      deviceId: 'sensor_pi_1'
-}
+    data.split("&").forEach(function(kv){
+        let v=0, k = kv.split("=")
+        v = k[1]
+        k = k[0]
+        req[k] = /\d+.?\d*/.exec(v)[0]
+    })
     req['lat'] = process.env.LAT
     req['long'] = process.env.LONG
 
@@ -107,5 +89,4 @@ function sendMessage(){
 // client.onDeviceMethod('SetTelemetryInterval', onSetTelemetryInterval);
 
 // Create a message and send it to the IoT hub, initially every second.
-intervalLoop = setInterval(sendMessage, 1000);
-// parser.on('data', sendMessage);
+parser.on('data', sendMessage);

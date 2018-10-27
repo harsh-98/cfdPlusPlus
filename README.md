@@ -4,10 +4,11 @@
 ## Contents
 - **Presentation** ([here](/Presentation))
 - **Slide Saver**: Android Application ([here](/SlideSaver/))
-- **api-gateway**: Backend ([here](/api-gateway/))
+- **api-gateway**: REST API Backend ([here](/api-gateway/))
 - **arduino_code**: Code for Microcontroller ([here](/arduino_code/))
 - **hub-backend**: Serverless Hub Backend ([here](/hub-backend/))
-- **sensor_node**: Simulated Devices for simulated data ([here](/sensor_node/))
+- **sensor_node**: Raspberry pi service for sending data to IOT hub ([here](/sensor_node/))
+- **sensor_details**: For data on the sensors used in this project ([here](/docs/Solution.md))
 
 ## Landslide detection and early warning system
 

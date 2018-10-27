@@ -26,9 +26,9 @@ module.exports = async function (context, IoTHubMessages) {
     });
 
     var roll = Math.abs(Math.round(Math.abs(Math.atan(x / y)) * 57.3) - 90)
-    var pitch = Math.abs(Math.round(Math.atan(-x / Math.sqrt(y * y + z * z)) * 57.3))
+    var acc = Math.abs(Math.round(Math.atan(-x / Math.sqrt(y * y + z * z)) * 57.3))
     var timestamp = Math.round(Date.now() / 1000);
-    var riskFactor = ((roll + pitch) / 90 + (Math.abs(totalRain / 100 - 1) + Math.abs(totalMoisture / 100 - 1)) * 1023 / 1446) / 2;
+    var riskFactor = ((roll + acc) / 90 + (Math.abs(totalRain / 100 - 1) + Math.abs(totalMoisture / 100 - 1)) * 1023 / 1446) / 2;
 
 
 
